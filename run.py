@@ -37,6 +37,7 @@ class Run():
 
     def main(self):
         self.model = FakingRecipe_Model(self.dataset)
+        project_root = os.path.dirname(os.path.abspath(__file__))
 
         if self.mode=='train':
             if self.dataset=='fakesv':
@@ -46,34 +47,34 @@ class Run():
                 data_split_dir='./data/FakeTT/data-split/'
                 save_predict_result_path='./predict_result/FakeTT/domain/'
             
-            train_data_path=data_split_dir+'vid_time3_train.txt'
-            test_data_path=data_split_dir+'vid_time3_test.txt'
-            val_data_path=data_split_dir+'vid_time3_val.txt'
-            # if self.dataset=='fakesv':
-            #     train_data_path="/home/disk2/ghh/acmmm/FakeSV_Domain_output/split/train_domain.txt"
-            #     test_data_path="/home/disk2/ghh/acmmm/FakeSV_Domain_output/split/test_domain.txt"
-            #     val_data_path="/home/disk2/ghh/acmmm/FakeSV_Domain_output/split/test_domain.txt"
-            #
-            #     train_count = sum(1 for _ in open("/home/disk2/ghh/acmmm/FakeSV_Domain_output/split/train_domain.txt", 'r',
-            #                                       encoding='utf-8'))
-            #     test_count = sum(1 for _ in open("/home/disk2/ghh/acmmm/FakeSV_Domain_output/split/test_domain.txt", 'r',
-            #                                      encoding='utf-8'))
-            #     val_count = sum(1 for _ in open("/home/disk2/ghh/acmmm/FakeSV_Domain_output/split/test_domain.txt", 'r',
-            #                                     encoding='utf-8'))
-            # if self.dataset=='fakett':
-            #     train_data_path = "/home/disk2/ghh/acmmm/FakeTT_Domain_output/split/train_domain.txt"
-            #     test_data_path = "/home/disk2/ghh/acmmm/FakeTT_Domain_output/split/test_domain.txt"
-            #     val_data_path = "/home/disk2/ghh/acmmm/FakeTT_Domain_output/split/test_domain.txt"
-            #
-            #     train_count = sum(
-            #         1 for _ in open("/home/disk2/ghh/acmmm/FakeTT_Domain_output/split/train_domain.txt", 'r',
-            #                         encoding='utf-8'))
-            #     test_count = sum(
-            #         1 for _ in open("/home/disk2/ghh/acmmm/FakeTT_Domain_output/split/test_domain.txt", 'r',
-            #                         encoding='utf-8'))
-            #     val_count = sum(1 for _ in open("/home/disk2/ghh/acmmm/FakeTT_Domain_output/split/test_domain.txt", 'r',
-            #                                     encoding='utf-8'))
-            # print(f"Train data count: {train_count}\nTest data count: {test_count}\nValidation data count: {val_count}")
+            # train_data_path=data_split_dir+'vid_time3_train.txt'
+            # test_data_path=data_split_dir+'vid_time3_test.txt'
+            # val_data_path=data_split_dir+'vid_time3_val.txt'
+            if self.dataset=='fakesv':
+                train_data_path=project_root + "/FakeSV_Domain_output/split/train_domain.txt"
+                test_data_path=project_root + "/FakeSV_Domain_output/split/test_domain.txt"
+                val_data_path=project_root + "/FakeSV_Domain_output/split/test_domain.txt"
+
+                train_count = sum(1 for _ in open(project_root + "/FakeSV_Domain_output/split/train_domain.txt", 'r',
+                                                  encoding='utf-8'))
+                test_count = sum(1 for _ in open(project_root + "/FakeSV_Domain_output/split/test_domain.txt", 'r',
+                                                 encoding='utf-8'))
+                val_count = sum(1 for _ in open(project_root + "/FakeSV_Domain_output/split/test_domain.txt", 'r',
+                                                encoding='utf-8'))
+            if self.dataset=='fakett':
+                train_data_path = project_root + "/FakeTT_Domain_output/split/train_domain.txt"
+                test_data_path = project_root + "/FakeTT_Domain_output/split/test_domain.txt"
+                val_data_path = project_root + "/FakeTT_Domain_output/split/test_domain.txt"
+
+                train_count = sum(
+                    1 for _ in open(project_root + "/FakeTT_Domain_output/split/train_domain.txt", 'r',
+                                    encoding='utf-8'))
+                test_count = sum(
+                    1 for _ in open(project_root + "/FakeTT_Domain_output/split/test_domain.txt", 'r',
+                                    encoding='utf-8'))
+                val_count = sum(1 for _ in open(project_root + "/FakeTT_Domain_output/split/test_domain.txt", 'r',
+                                                encoding='utf-8'))
+            print(f"Train data count: {train_count}\nTest data count: {test_count}\nValidation data count: {val_count}")
 
             data_load_time_start = time.time()
             train_dataloader=self.get_dataloader(train_data_path)

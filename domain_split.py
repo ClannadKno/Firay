@@ -48,10 +48,11 @@ def extract_video_ids(input_dir, exclude_files, output_dir):
 
 # List of files to exclude
 # exclude_files = ['Education_classified.json', 'Finance_classified.json', 'Military_classified.json']
-exclude_files = ['Disaster_classified.json']
+exclude_files = ['Culture_classified.json']
 
-input_dir = '/home/disk2/ghh/acmmm/FakeSV_Domain_output/'
-output_dir = '/home/disk2/ghh/acmmm/FakeSV_Domain_output/split/'
+project_root = os.path.dirname(os.path.abspath(__file__))
+input_dir = project_root + '/FakeTT_Domain_output/'
+output_dir = project_root + '/FakeTT_Domain_output/split/'
 
 # Call the function
 extract_video_ids(input_dir, exclude_files, output_dir)
