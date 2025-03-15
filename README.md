@@ -12,11 +12,7 @@
 
 ## Dataset
 We conduct experiments on two datasets: FakeSV and FakeTT. 
-### FakeSV
-FakeSV is the largest publicly available Chinese dataset for fake news detection on short video platforms, featuring samples from
-Douyin and Kuaishou, two popular Chinese short video platforms. Each sample in FakeSV contains the video itself, its title, comments, metadata, and publisher profiles. For the details, please refer to [this repo](https://github.com/ICTMCG/FakeSV).
-### FakeTT
-FakeTT is English dataset for a comprehensive evaluation in English-speaking contexts, Each sample in FakeTT contains the video itself, its title, comments, metadata, and publisher profiles. For the details, please refer to [this repo](https://github.com/ICTMCG/FakingRecipe). 
+- You can download preprocessed features and checkpoints in [this repo](https://github.com/ICTMCG/FakingRecipe). 
 
 ## Environment
 ```shell
@@ -25,19 +21,24 @@ FakeTT is English dataset for a comprehensive evaluation in English-speaking con
   pip install -r requirements.txt
 ```
 ## Data Preprocess
-- To extract OCR, we use [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR).
-- To seg video clips, we use [TransNetv2](https://github.com/soCzech/TransNetV2).
-- To facilitate reproduction, the author of FakeTT and FakeSV provide preprocessed features, which you can download from [this link](https://pan.baidu.com/s/1z4taz_nOe_Uq5IANlPyOYw?pwd=ydp9)(pwd: ydp9) and place the '/fea' directory under FakingRecipe (at the same level as main.py). Additionally, we offer [checkpoints](https://pan.baidu.com/s/1BI7hDnDbrpQlWBb6-dslYQ?pwd=qkqj) (pwd: qkqj) for two datasets, which you can similarly place the '/provided_ckp' directory under FakingRecipe.
 ```shell
-  # To classify the data into different domains
+  # You can classify the data into different domains by this commend
   python domain_classify.py
 ```
+- To facilitate access to domain-specific data, we provide domain-partitioned datasets (fakesv and fakett) in the data folder FakeSV_Domain_output and FakeTT_Domain_output.
 ## Quick Start
 You can train and test by following code:
  ```shell
-  # Infer the examples from FakeSV
+  # First, select different training and testing domains based on your criteria in domain_split.py, then run it to generate the splits.
+  python domain_split.py
+  
+  # Then you can fast run by this:
+  ./run.sh
+  
+  # Or you can run like this:
+  # FakeSV:
   python main.py --dataset fakesv --mode train --inference_ckp ./provided_ckp/FakingRecipe_fakesv --dg --diffusion --alpha 0.1 --beta 3 --gamma 0.05 --lr 5e-5
-  # Infer the examples from FakeTT
+  # FakeTT:
   python main.py --dataset fakett --mode train --inference_ckp ./provided_ckp/FakingRecipe_fakett --dg --diffusion --alpha 0.1 --beta 3 --gamma 0.05 --lr 1e-3
   ```
 
